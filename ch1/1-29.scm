@@ -27,12 +27,14 @@
   (define h (/ (- b a) n))
   (define (y k) (f (+ a (* k h))))
   (define (inc c) (+ c 1))
-  (define (new-f num)
-    (cond
-      ((= num 0) (* 1.0 (y 0)))
-      ((= num n) (* 1.0 (y num)))
-      ((even? num) (* 2.0 (y num)))
-      (else (* 4.0 (y num)))
+  (define (new-f k)
+    (*
+      (cond
+        ((or (= k 0) (= k n)) 1.0)
+        ((even? k) 2.0)
+        (else 4.0)
+      )
+      (y k)
     )
   )
   (* (sum new-f 0 inc n)
