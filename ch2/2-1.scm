@@ -1,6 +1,25 @@
 ; negative rational numbers
 
-(define (make-rat n d) (cons n d))
+(define (gcd a b)
+  (if (= b 0)
+    a
+    (gcd b (remainder a b))
+  )
+)
+
+(define (make-rat n d)
+  (let (
+      (g (gcd n d))
+    )
+    (define new-n (/ n g))
+    (define new-d (/ d g))
+    (if (> new-d 0)
+      (cons new-n new-d)
+      (cons (* -1 new-n) (* -1 new-d))
+    )
+  )
+)
+
 (define (numer x) (car x))
 (define (denom x) (cdr x))
 
@@ -50,3 +69,12 @@
 (print-rat (mul-rat one-half one-third))
 (print-rat (div-rat one-half one-third))
 (print-rat (add-rat one-third one-third))
+
+(define minus-one-half (make-rat -1 2))
+(define minus-one-third (make-rat -1 3))
+
+(print-rat (add-rat minus-one-half minus-one-third))
+(print-rat (sub-rat minus-one-half minus-one-third))
+(print-rat (mul-rat minus-one-half minus-one-third))
+(print-rat (div-rat minus-one-half minus-one-third))
+(print-rat (add-rat minus-one-third minus-one-third))
